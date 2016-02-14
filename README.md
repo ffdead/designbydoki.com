@@ -1,3 +1,0 @@
-# designbydoki.com
-
-Deployed assets

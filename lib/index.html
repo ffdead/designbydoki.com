@@ -1,0 +1,10 @@
+
+<h1>1. Drag bookmarklet link to bookmarks bar</h1>
+
+<a href="javascript:/* The following snippet injects the needed JS from localhost */(function () {var request = new XMLHttpRequest();request.open('GET', 'https://localhost:8080/bookmarklet-logic.js', true);request.onload = function() {if (request.status >= 200 && request.status < 400) {eval(request.responseText);console.log('Tictail bookmarklet loaded!');} else {alert('Local dev server returned unknown error.');}};request.onerror = function() {alert('Local dev server is not running.\nRun ´gulp´ and try again.');};request.send();})()">Tictail Local Dev</a>
+
+<h1>2. Login to Tictail and edit store design</h1>
+
+
+<h1>3. Click bookmarlet in browser toolbar</h1>
+

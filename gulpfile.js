@@ -9,6 +9,7 @@ var buffer       = require('vinyl-buffer');
 var runSequence  = require('run-sequence');
 var ghPages      = require('gulp-gh-pages');
 
+
 // Auto-load gulp-* plugins in package.json
 var plugins      = require('gulp-load-plugins')();
 
@@ -16,7 +17,8 @@ var plugins      = require('gulp-load-plugins')();
 var config = {
   debug: false, // use set-debug taget to enable
   jsOutputDir: './build/js/',
-  jsMainFilename: 'main.js'
+  jsMainFilename: 'main.js',
+  assetPath: 'https://ffdead.github.io/designbydoki.com/'
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -109,6 +111,7 @@ gulp.task('build:js', function() {
 gulp.task('build:inline', ['build:mustache'], function() {
   return gulp.src('./build/*.mustache')
       .pipe(inlinesource({compress: false}))
+      .pipe(plugins.replace(/(url[('"]*).*assets/g, '$1' + config.assetPath))
       .pipe(gulp.dest('./build'))
       .on('end', function(){
         plugins.util.log(plugins.util.colors.yellow('THEME'), plugins.util.colors.bgGreen('UPDATED'));
@@ -124,13 +127,13 @@ gulp.task('build', ['build:js', 'build:sass'], function () {
 ///////////////////////////////////////////////////////////////////////////////
 
 gulp.task('watch:js', function() {
-  gulp.watch(['./theme/**/*.js'], function () {
+  gulp.watch(['theme/**/*.js'], function () {
     runSequence('build:js', 'build:inline');
   });
 });
 
 gulp.task('watch:sass', function () {
-  gulp.watch(['./theme/**/*.{sass, scss}'], function () {
+  gulp.watch(['theme/**/*.{sass, scss}'], function () {
     runSequence('build:sass', 'build:inline');
   });
 });
@@ -141,7 +144,15 @@ gulp.task('watch:mustache', function () {
   });
 });
 
-gulp.task('watch', ['watch:sass', 'watch:js', 'watch:mustache']);
+gulp.task('watch:assets', function () {
+  console.log('setting up asset watch');
+  gulp.watch(['theme/assets/**/*'], function () {
+     console.log('**** ASSET ACTION ');
+    runSequence('deploy:assets');
+  });
+});
+
+gulp.task('watch', ['watch:sass', 'watch:js', 'watch:mustache', 'watch:assets']);
 
 ///////////////////////////////////////////////////////////////////////////////
 // SERVE MINIFIED

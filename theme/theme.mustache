@@ -98,11 +98,9 @@
 
                         <a href="{{url}}" class="image_container hand_cursor">
                             {{#primary_image}}
-                                <figure class="responsive" data-media="{{url-300}}" data-media440="{{url-500}}" data-media600="{{url-1000}}" data-media1400="{{url-2000}}" alt="{{title}}">
-                                    <noscript>
-                                        <img src="{{url-1000}}" alt="{{title}}">
-                                    </noscript>
-                                </figure>
+                                <img src="{{url-2000}}" 
+                                     srcset="{{url-300}} 300w, {{url-500}} 500w, {{url-1000}} 1000w, {{url-2000}} 2000w" 
+                                     alt="{{title}}" />
 
                                 <!-- <div class="show_more">More Images … </div> -->
                             {{/primary_image}}
@@ -112,17 +110,12 @@
                             <section class="details_container">
                                 
                                 <div class="description html_content">
-                                    
-                                    <div class="text compact">
-                                        {{description}}
-                                    </div>
-                                    
                                 
                                     <a href="{{url}}" class="price compact">
                                         {{#in_stock}}{{price_with_currency}}{{/in_stock}} {{#out_of_stock}}{{#lang}}Sold Out{{/lang}}{{/out_of_stock}}
                                     </a>
                                     
-    <!--                                 <div class="show_more">
+                                    <div class="show_more">
                                         {{#add_to_cart}}
                                         <div class="add_to_cart">
                                             {{#add_to_cart_button}}
@@ -131,7 +124,7 @@
                                         </div>
                                         {{/add_to_cart}}
 
-                                    </div> -->
+                                    </div>
                                     
                                 </div>
 
@@ -168,9 +161,8 @@
                     <div class="image_container">
                         <ul class="inner">
                         {{#all_images}}<li>
-                            <figure class="responsive" data-media="{{url-300}}" data-media440="{{url-500}}" data-media600="{{url-1000}}" data-media1400="{{url-2000}}" alt="{{title}}">
-                                <noscript><img src="{{url-1000}}" alt="{{title}}"></noscript>
-                            </figure>
+                            <img src="{{url-2000}}" 
+                                 srcset="{{url-300}} 300w, {{url-500}} 500w, {{url-1000}} 1000w, {{url-2000}} 2000w" alt="{{title}}" />
                         </li>{{/all_images}}
                         </ul>
                     </div>
@@ -239,11 +231,8 @@
 
                                 <a href="{{url}}" class="image_container hand_cursor">
                                     {{#primary_image}}
-                                        <figure class="responsive" data-media="{{url-300}}" data-media440="{{url-500}}" data-media600="{{url-1000}}" data-media1400="{{url-2000}}" alt="{{title}}">
-                                            <noscript>
-                                                <img src="{{url-1000}}" alt="{{title}}">
-                                            </noscript>
-                                        </figure>
+                                        <img src="{{url-2000}}" 
+                                             srcset="{{url-300}} 300w, {{url-500}} 500w, {{url-1000}} 1000w, {{url-2000}} 2000w" alt="{{title}}" />
                                     {{/primary_image}}
                                 </a>
 

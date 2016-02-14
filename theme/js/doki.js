@@ -1,6 +1,6 @@
 class Doki {
 	constructor() {
-		console.log('DOKI7', jQuery)
+		console.log('DOKI 8', jQuery)
 	}
 }
 

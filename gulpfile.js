@@ -7,6 +7,7 @@ var watchify     = require('watchify');
 var source       = require('vinyl-source-stream');
 var buffer       = require('vinyl-buffer');
 var runSequence  = require('run-sequence');
+var ghPages      = require('gulp-gh-pages');
 
 // Auto-load gulp-* plugins in package.json
 var plugins      = require('gulp-load-plugins')();
@@ -58,6 +59,11 @@ gulp.task('copy:lib', function () {
   return gulp
     .src('./lib/*')
     .pipe(gulp.dest('./build'));
+});
+
+gulp.task('deploy:assets', function() {
+  return gulp.src('./theme/assets/**/*')
+    .pipe(ghPages());
 });
 
 gulp.task('build:mustache', function () {

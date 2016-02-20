@@ -1,6 +1,14 @@
-class Doki {
+import Component from 'component-loader-js/dist/es5/component'
+
+class Doki extends Component {
 	constructor() {
-		console.log('DOKI 8', jQuery)
+		super(...arguments);
+		console.log('new DOKI 36');
+	}
+
+	destroy() {
+		super.destroy();
+		console.log('destroy DOKI');
 	}
 }
 

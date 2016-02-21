@@ -16,6 +16,8 @@ html {
   display: block;
   position: relative;
   top: 40%;
+  height: 200px;
+  width: auto;
 }
 
 .Header__logo > * {

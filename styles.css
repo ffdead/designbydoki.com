@@ -36,10 +36,6 @@ body {
   opacity: 0.9 !important;
 }
 
-.StickyNav {
-  position: fixed;
-}
-
 .StickyNav--visible {
   border: 10px solid green;
 }

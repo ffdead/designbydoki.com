@@ -37,5 +37,9 @@ body {
 }
 
 .StickyNav--visible {
+  border: 10px solid green;
+}
+
+.StickyNav--hidden {
   border: 10px solid red;
 }

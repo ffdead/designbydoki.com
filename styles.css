@@ -18,6 +18,10 @@ html {
   top: 40%;
 }
 
+.Header__logo > * {
+  fill: white;
+}
+
 html,
 body {
   height: 100%;

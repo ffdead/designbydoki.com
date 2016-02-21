@@ -35,3 +35,7 @@ body {
 #tt_widget {
   opacity: 0.9 !important;
 }
+
+.StickyNav--visible {
+  border: 10px solid red;
+}

@@ -15,7 +15,7 @@ html {
 .Header__logo {
   display: block;
   position: relative;
-  top: 40%;
+  top: 20vh;
 }
 
 .Header__logoImg {

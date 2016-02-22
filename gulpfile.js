@@ -177,7 +177,7 @@ gulp.task('watch:assets', function () {
   gulp.watch(['build/assets/**/*'], function () {
     runSequence('deploy:assets');
   });
-});
+}); 
 
 gulp.task('watch', ['watch:sass', 'watch:js', 'watch:mustache', 'watch:assets']);
 
@@ -196,7 +196,7 @@ gulp.task('debug', ['set-inline', 'set-debug'], function () {
 });
 
 ///////////////////////////////////////////////////////////////////////////////
-// SERVE DIST WITH EXTEERNAL ASSETS
+// SERVE DIST WITH EXTERNAL ASSETS
 ///////////////////////////////////////////////////////////////////////////////
 
 gulp.task('dist', ['serve'], function () {

@@ -1,21 +1,19 @@
-var gulp = require('gulp');
+var gulp         = require('gulp');
 var cors         = require('cors');
-var inlinesource = require('gulp-inline-source');
 var babelify     = require('babelify');
 var browserify   = require('browserify');
-var watchify     = require('watchify');
 var source       = require('vinyl-source-stream');
 var buffer       = require('vinyl-buffer');
 var runSequence  = require('run-sequence');
 var ghPages      = require('gulp-gh-pages');
 var rev          = require('gulp-rev-append');
 
-
 // Auto-load gulp-* plugins in package.json
 var plugins      = require('gulp-load-plugins')();
 
 // Configuration
 var config = {
+  port: 8080,
   inline: false, // inline CSS & JS instead of linking to external assets
   debug: false, // use set-debug taget to enable
   jsMainFilename: 'main.js',
@@ -37,11 +35,9 @@ function handleErrors() {
 
 gulp.task('set-debug', function () {
   config.debug = true;
+  config.assetPath = 'https://localhost:' + config.port + '/assets/'
 });
 
-gulp.task('set-inline', function () {
-  config.inline = true;
-});
 
 ///////////////////////////////////////////////////////////////////////////////
 // SERVER TARGET
@@ -50,6 +46,7 @@ gulp.task('set-inline', function () {
 gulp.task('connect', function() {
   plugins.connect.server({
     root: 'build',
+    port: config.port,
     livereload: false,
     https: true,
     middleware: function() {
@@ -93,9 +90,6 @@ gulp.task('deploy:assets', ['build:assets'], function(cb) {
     });
 });
 
-
-
-
 gulp.task('build:mustache', function () {
  return gulp.src('./theme/*.mustache')
     .pipe(gulp.dest('./build'));
@@ -136,11 +130,12 @@ gulp.task('build:js', function() {
     .pipe(gulp.dest('./build/assets'))
 });
 
+gulp.task('build', ['build:js', 'build:sass', 'build:assets']);
+
+
 gulp.task('compile:template', ['build:mustache'], function() {
   return gulp.src('./build/*.mustache')
-      .pipe(plugins.if(config.inline, plugins.replace(/\?rev=@@hash/g, '') ))
-      .pipe(plugins.if(config.inline, inlinesource({compress: false}) ))
-      .pipe(plugins.if(!config.inline, rev() ))
+      .pipe(rev())
       .pipe(plugins.replace(/((href=|src=)[\'\"]*).*assets\//g, '$1' + config.assetPath))
       .pipe(plugins.replace(/(url\([\'\"]*)/g, '$1' + config.assetPath))
       .pipe(gulp.dest('./build'))
@@ -149,7 +144,16 @@ gulp.task('compile:template', ['build:mustache'], function() {
       });
 });
 
-gulp.task('build', ['build:js', 'build:sass', 'build:assets']);
+
+gulp.task('deploy', function () {
+  if (config.debug) {
+    runSequence('compile:template');
+  }
+  else {
+     runSequence('deploy:assets', 'wait', 'compile:template');
+  }
+});
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // WATCH TARGETS
@@ -157,19 +161,19 @@ gulp.task('build', ['build:js', 'build:sass', 'build:assets']);
 
 gulp.task('watch:js', function() {
   gulp.watch(['theme/**/*.js'], function () {
-    runSequence('build:js', 'compile:template');
+    runSequence('build:js', 'deploy');
   });
 });
 
 gulp.task('watch:sass', function () {
   gulp.watch(['theme/**/*.{sass, scss}'], function () {
-    runSequence('build:sass', 'compile:template');
+    runSequence('build:sass', 'deploy');
   });
 });
 
 gulp.task('watch:mustache', function () {
   gulp.watch(['./theme/**/*.mustache'], function () {
-    runSequence('build:mustache', 'compile:template');
+    runSequence('build:mustache', 'deploy');
   });
 });
 
@@ -181,35 +185,35 @@ gulp.task('watch:assets', function () {
 
 gulp.task('watch', ['watch:sass', 'watch:js', 'watch:mustache', 'watch:assets']);
 
+
 ///////////////////////////////////////////////////////////////////////////////
-// SERVE TEMPLATE
+// BUILD AND SERVE TEMPLATE 
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('serve', ['connect', 'copy:lib', 'build']);
+gulp.task('serve', ['connect', 'copy:lib', 'build'], function () {
+  runSequence('watch', 'deploy');
+});
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // SERVE DEBUG WITH WATCH
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('debug', ['set-inline', 'set-debug'], function () {
-  runSequence('serve', 'compile:template', 'watch');
+gulp.task('preview', ['set-debug'], function () {
+  runSequence('serve');
 });
+
 
 ///////////////////////////////////////////////////////////////////////////////
 // SERVE DIST WITH EXTERNAL ASSETS
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('dist', ['serve'], function () {
-  runSequence('deploy:assets', 'wait', 'compile:template');
-});
+gulp.task('dist', ['serve']);
 
-gulp.task('dist-debug', ['set-debug'], function () {
-  runSequence('dist');
-});
 
 ///////////////////////////////////////////////////////////////////////////////
 // DEFAULT TARGET
 ///////////////////////////////////////////////////////////////////////////////
 
-gulp.task('default', ['debug']);
+gulp.task('default', ['preview']);
 

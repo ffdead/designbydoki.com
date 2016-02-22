@@ -1,0 +1,81 @@
+
+/*
+* Breakpoint wider than number of pixels
+*
+* @example
+* @include if-wider-than(960px) { color: hotpink; }
+*
+*/
+@mixin if-wider-than($b) {
+	@media (min-width: $b) {
+		@content;
+	}
+}
+
+/*
+* Breakpoint narrower than number of pixels (removing 1px to not overlap with min-width)
+*
+* @example
+* @include if-narrower-than(960px) { color: hotpink; }
+*
+*/
+@mixin if-narrower-than($b) {
+	@media (max-width: #{$b - 1px} ){
+		@content;
+	}
+}
+
+/*
+* Breakpoint taller than number of pixels
+*
+* @example
+* @include if-taller-than(960px) { color: hotpink; }
+*
+*/
+@mixin if-taller-than($b) {
+	@media (min-height: $b) {
+		@content;
+	}
+}
+
+
+/*
+* Breakpoint shorter than number of pixels (inclusive)
+*
+* @example
+* @include if-shorter-than(960px) { color: hotpink; }
+*
+*/
+@mixin if-shorter-than($b) {
+	@media (max-height: #{$b - 1px} ) {
+		@content;
+	}
+}
+
+
+/*============================================================================
+  Dependency-free breakpoint mixin
+    - Based on http://blog.grayghostvisuals.com/sass/sass-media-query-mixin/
+    - Usage docs: http://shopify.github.io/Timber/#sass-mixins
+==============================================================================*/
+$min: min-width;
+$max: max-width;
+@mixin at-query ($constraint_, $viewport1_, $viewport2_:null) {
+ $constraint: $constraint_; $viewport1: $viewport1_; $viewport2: $viewport2_;
+  @if type-of($constraint_) == number {
+    $viewport1 : $constraint_; $viewport2 : $viewport1_; $constraint : null;
+  }
+  @if $constraint == $min {
+    @media screen and ($min: $viewport1) {
+      @content;
+    }
+  } @else if $constraint == $max {
+    @media screen and ($max: $viewport1) {
+      @content;
+    }
+  } @else {
+    @media screen and ($min: $viewport1) and ($max: $viewport2) {
+      @content;
+    }
+  }
+}

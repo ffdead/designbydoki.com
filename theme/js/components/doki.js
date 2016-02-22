@@ -3,7 +3,7 @@ import Component from 'component-loader-js/dist/es5/component';
 class Doki extends Component {
 	constructor() {
 		super(...arguments);
-		console.log('new DOKI 39');
+		console.log('new DOKI 40');
 	}
 
 	destroy() {

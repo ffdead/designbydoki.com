@@ -32,42 +32,37 @@
 		animation: StickyNav-show 400ms $easeOutQuad 1 backwards
 		
 
-/*
-.StickyNav 
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
+// .StickyNav 
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
 
-	@include if-wider-than($breakpoint-md-px) 
-		position: absolute; // not fixed until locked
+// 	@include if-wider-than($breakpoint-md-px) 
+// 		position: absolute; // not fixed until locked
 	
 
-	background-color: transparent;
-	text-align: center;
-	z-index: $z-index-StickyNav;
+// 	background-color: transparent;
+// 	text-align: center;
+// 	z-index: $z-index-StickyNav;
 
 
-	.js & 
-		transition: opacity .4s $easeInOutQuad 1s;
-		visibility: hidden;
+// 	.js & 
+// 		transition: opacity .4s $easeInOutQuad 1s;
+// 		visibility: hidden;
 	
-	.js.hero--active & 
-		opacity: 0;
-		transition: none;
+// 	.js.hero--active & 
+// 		opacity: 0;
+// 		transition: none;
 	
 
-	&.StickyNav--locked,
-	.has-hijacked-scroll & 
-		@include if-wider-than($breakpoint-md-px) 
-			// only lock under logo on desktop
-			position: fixed;
-			top: -1 * ($header-lock-threashold);
+// 	&.StickyNav--locked,
+// 	.has-hijacked-scroll & 
+// 		@include if-wider-than($breakpoint-md-px) 
+// 			// only lock under logo on desktop
+// 			position: fixed;
+// 			top: -1 * ($header-lock-threashold);
+
+// 	&.StickyNav--background 
+// 		background-color: $header-fixed-bg-color
 		
-	
-
-	&.StickyNav--background 
-		background-color: $header-fixed-bg-color;
-	
-
-*/

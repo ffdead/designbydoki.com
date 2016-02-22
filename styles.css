@@ -49,7 +49,7 @@ html {
 .Header {
   position: relative;
   background: rgba(0, 0, 0, 0.2);
-  height: 9vh;
+  height: 90vh;
   text-align: center;
   background: #000 url("knitting-hat.jpeg") center center no-repeat;
   background-size: cover;

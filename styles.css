@@ -70,6 +70,14 @@ html {
   fill: white;
 }
 
+.Menu {
+  background: hotpink;
+}
+
+.Menu__item {
+  display: inline-block;
+}
+
 @-webkit-keyframes StickyNav-show {
   from {
     -webkit-transform: translateY(-100%);

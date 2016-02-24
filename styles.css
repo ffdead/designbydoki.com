@@ -124,7 +124,7 @@ html {
 
 .StickyNav {
   background-color: transparent;
-  position: relative;
+  position: absolute;
   will-change: transform;
 }
 

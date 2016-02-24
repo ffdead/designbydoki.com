@@ -72,6 +72,10 @@ html {
 
 .Menu {
   background: hotpink;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 
 .Menu__item {

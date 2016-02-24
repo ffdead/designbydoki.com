@@ -146,13 +146,11 @@ html {
 }
 
 .StickyNav--hidden {
-  border: 10px solid red;
   -webkit-animation: StickyNav-hide 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19) 1 forwards;
   animation: StickyNav-hide 300ms cubic-bezier(0.55, 0.055, 0.675, 0.19) 1 forwards;
 }
 
 .StickyNav--visible {
-  border: 10px solid green;
   -webkit-animation: StickyNav-show 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 1 backwards;
   animation: StickyNav-show 400ms cubic-bezier(0.25, 0.46, 0.45, 0.94) 1 backwards;
 }

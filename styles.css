@@ -80,6 +80,7 @@ html {
 
 .Menu__item {
   display: inline-block;
+  padding: 1rem;
 }
 
 @-webkit-keyframes StickyNav-show {

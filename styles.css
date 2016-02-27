@@ -83,6 +83,10 @@ html {
   padding: 1rem;
 }
 
+.Menu__item a {
+  color: #222;
+}
+
 @-webkit-keyframes StickyNav-show {
   from {
     -webkit-transform: translateY(-100%);

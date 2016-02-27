@@ -18,7 +18,7 @@
 
 ***/
 
-import Component from '../base/component';
+import {Component} from 'component-loader-js';
 import scrollMonitor from 'scrollMonitor';
 
 import whichAnimationEvent from '../utils/which-animation-event';

@@ -1,4 +1,4 @@
-import Component from 'base-component';
+import {Component} from 'component-loader-js';
 
 
 const CLASS_LOADING = 'is-loading';

@@ -1,3 +1,7 @@
+$stickynav-color: #fff
+$stickynav-bg-color: transparent
+$stickynav-fixed-color: #444
+$stickynav-fixed-bg-color: rgba(255, 255, 255, 0.95)
 
 ////////////////////////////////////////////
 // Sticky header animation
@@ -18,19 +22,24 @@
 
 
 .StickyNav
-	background-color: transparent
-	position: relative
+	background-color: $stickynav-bg-color
+	color: $stickynav-color
+	position: fixed
 	will-change: transform
+	transition: background 400ms $easeInOutQuad, color 400ms $easeInOutQuad
 
-	&--hidden 
-		border: 10px solid red
+	&--locked
+		position: fixed;
+
+	&--hidden
 		animation: StickyNav-hide 300ms $easeInCubic 1 forwards
-		
 	
-	&--visible 
-		border: 10px solid green
+	&--visible
 		animation: StickyNav-show 400ms $easeOutQuad 1 backwards
 		
+	&--background 
+		color: $stickynav-fixed-color
+		background-color: $stickynav-fixed-bg-color
 
 // .StickyNav 
 // 	position: fixed;

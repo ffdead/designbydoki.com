@@ -1,4 +1,4 @@
-import Component from 'component-loader-js/dist/es5/component';
+import {Component} from 'component-loader-js';
 
 class Doki extends Component {
 	constructor() {

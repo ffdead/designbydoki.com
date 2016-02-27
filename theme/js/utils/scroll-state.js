@@ -14,14 +14,13 @@ import scrollMonitor from 'scrollMonitor';
 const $document = $(document);
 const $window = $(window);
 
+export const EVENT_SCROLL_START = 'scrollstate:start';
+export const EVENT_SCROLL_STOP  = 'scrollstate:stop';
+export const EVENT_SCROLL_FRAME = 'scrollstate:frame';
+
 class ScrollState {
 
 	constructor() {
-		// Any way to export static class constants with ES6? These event names should be packaged with the module.
-		this.EVENT_SCROLL_START = 'scrollstate:start';
-		this.EVENT_SCROLL_STOP  = 'scrollstate:stop';
-		this.EVENT_SCROLL_FRAME = 'scrollstate:frame';
-
 		this.updating  = false;
 		this.latestFrame = Date.now();
 
@@ -46,7 +45,6 @@ class ScrollState {
 		this.onScrollStopDebounced = debounce(this._onScrollStop.bind(this), 500);
 
 		this._addEventListeners();
-
 	}
 
 	/**
@@ -140,11 +138,11 @@ class ScrollState {
 	}
 
 	_onScrollStart() {
-		this._publish(this.EVENT_SCROLL_START, this);
+		this._publish(EVENT_SCROLL_START, this);
 	}
 
 	_onScrollStop() {
-		this._publish(this.EVENT_SCROLL_STOP, this);
+		this._publish(EVENT_SCROLL_STOP, this);
 	}
 
 	updateState() {
@@ -174,10 +172,10 @@ class ScrollState {
 
 		this.latestFrame = now;
 
-		this._publish(this.EVENT_SCROLL_FRAME, this);
+		this._publish(EVENT_SCROLL_FRAME, this);
 
 		this.updating = false;
 	}
 }
 
-module.exports = new ScrollState
+export default new ScrollState()

@@ -1,5 +1,5 @@
 import 'jquery-smoothState';
-import Component from 'component-loader-js/dist/es5/component';
+import {Component} from 'component-loader-js';
 
 // Public Events
 export const ACTION_SMOOTHSTATE_LOAD_PAGE     = 'smoothstate-action-load-page';

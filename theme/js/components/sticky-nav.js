@@ -1,6 +1,6 @@
-import Component from 'component-loader-js/dist/es5/component';
+import {Component} from 'component-loader-js';
 import animationEndEvent from '../utils/animation-end-event';
-import scrollState from '../utils/scroll-state';
+import scrollState, {EVENT_SCROLL_FRAME} from '../utils/scroll-state';
 
 /**
 	Sticky Nav component
@@ -20,18 +20,18 @@ const CLASS_LOCKED = 'StickyNav--locked';
 const CLASS_BACKGROUND = 'StickyNav--background';
 
 // px from top of document where 'locked' class is added (inclusive)
-const LOCK_THRESHOLD = 100;
+const LOCK_THRESHOLD = 0;
+const BG_THRESHOLD = 100;
+const HIDE_THRESHOLD = 500;
 
-// Speed/Distance required to change appearance per scroll frame
-const MIN_SCROLL_SPEED = 500;
-const MIN_SCROLL_DISTANCE = 20;
+// Scroll speed required to reveal header when scrolling back up
+const MIN_SCROLL_SPEED = 400;
 
 
 class StickyNav extends Component {
 
 	constructor() {
 		super(...arguments);
-		console.log('STICKY');
 		this.$document = $(document);
 		this.isHidden = false;
 		this.isLocked = false;
@@ -52,12 +52,9 @@ class StickyNav extends Component {
 
 
 	init() {
-		scrollState.subscribe(scrollState.EVENT_SCROLL_FRAME, this.onStateChanged);
-		// this.subscribe(Enums.ACTION_STICKY_NAV_SHOW_BACKGROUND, this.addBackground);
-		// this.subscribe(Enums.ACTION_STICKY_NAV_HIDE_BACKGROUND, this.removeBackground);
-		// this.mobileBreakpoint = Breakpoints.on({
-		// 	name: "BREAKPOINT_SMALL"
-		// });
+		scrollState.subscribe(EVENT_SCROLL_FRAME, this.onStateChanged);
+		// this.subscribe(ACTION_STICKY_NAV_SHOW_BACKGROUND, this.addBackground);
+		// this.subscribe(ACTION_STICKY_NAV_HIDE_BACKGROUND, this.removeBackground);
 	}
 
 
@@ -73,10 +70,7 @@ class StickyNav extends Component {
 
 
 	_getBackgroundThreshold() {
-		// if (this.mobileBreakpoint.isMatched) {
-		// 	return 1; //switch bg as soon as we start scrolling (scroll=0 needs transparency on map)
-		// }
-		return LOCK_THRESHOLD + 1; // wait until passing threashold
+		return BG_THRESHOLD + 1; // wait until passing threashold
 	}
 
 
@@ -93,6 +87,7 @@ class StickyNav extends Component {
 
 	hide() {
 		if (!this.isHidden) {
+			console.log('hide!');
 			this.$el.addClass(CLASS_HIDDEN).removeClass(CLASS_VISIBLE);
 			this.isHidden = true;
 		}
@@ -132,7 +127,7 @@ class StickyNav extends Component {
 
 
 	isAboveVisibleThreshold(state) {
-		return state.viewportTop <= LOCK_THRESHOLD;
+		return state.viewportTop <= HIDE_THRESHOLD;
 	}
 
 
@@ -165,9 +160,7 @@ class StickyNav extends Component {
 			this.hide();
 		}
 		// else if scrolling up with enough speed
-		// * fast computer -> many events -> short distance between events = better to check speed
-		// * slow computer -> few events -> less visible speed = better to check distance
-		else if (state.scrollSpeed > MIN_SCROLL_SPEED || state.scrollDistance > MIN_SCROLL_DISTANCE) {
+		else if (state.scrollSpeed > MIN_SCROLL_SPEED) {
 			this.show();
 		}
 	}
@@ -175,9 +168,9 @@ class StickyNav extends Component {
 
 	destroy() {
 		this.show();
-		scrollState.unsubscribe(scrollState.EVENT_SCROLL_FRAME, this.onStateChanged);
-		// this.unsubscribe(Enums.ACTION_STICKY_NAV_SHOW_BACKGROUND, this.addBackground);
-		// this.unsubscribe(Enums.ACTION_STICKY_NAV_HIDE_BACKGROUND, this.removeBackground);
+		scrollState.unsubscribe(EVENT_SCROLL_FRAME, this.onStateChanged);
+		// this.unsubscribe(ACTION_STICKY_NAV_SHOW_BACKGROUND, this.addBackground);
+		// this.unsubscribe(ACTION_STICKY_NAV_HIDE_BACKGROUND, this.removeBackground);
 	}
 }
 

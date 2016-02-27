@@ -84,7 +84,8 @@ html {
 }
 
 .Menu__item a {
-  color: #222;
+  color: #fff;
+  text-decoration: none;
 }
 
 @-webkit-keyframes StickyNav-show {

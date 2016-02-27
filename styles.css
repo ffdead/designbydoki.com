@@ -89,6 +89,10 @@ html {
   text-transform: uppercase;
 }
 
+.Menu__item--selected {
+  text-decoration: underline;
+}
+
 @-webkit-keyframes StickyNav-show {
   from {
     -webkit-transform: translateY(-100%);

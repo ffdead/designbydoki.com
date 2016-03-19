@@ -154,7 +154,7 @@ html {
 .StickyNav--locked {
   position: fixed;
   top: 0;
-  bottom: 0;
+  bottom: auto;
 }
 
 .StickyNav--hidden {

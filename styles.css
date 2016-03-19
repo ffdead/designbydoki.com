@@ -146,7 +146,6 @@ html {
 }
 
 .StickyNav {
-  background-color: transparent;
   color: #fff;
   position: fixed;
   will-change: transform;
